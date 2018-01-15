@@ -277,7 +277,15 @@ public class EventChain {
                 Arrays.sort(fileNameList);
                 for (String fileName : fileNameList) {
                     if (fileName.endsWith(".json")) {
-                        eventChainBuilder.buildEventChain(fileName, filters, inputDir, outputEventDir, outputDetailEventDir);
+                        try {
+                            eventChainBuilder.buildEventChain(fileName, filters, inputDir, outputEventDir, outputDetailEventDir);
+                        }
+                        catch (RuntimeException e){
+                            e.printStackTrace();
+                        }
+                        finally {
+                            logger.error("RuntimeError on file " + fileName);
+                        }
                     }
                 }
             }
